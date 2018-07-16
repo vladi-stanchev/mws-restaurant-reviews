@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Mission Chinese Food",
     "neighborhood": "Manhattan",
-    "photograph": "1.jpg",
+    "photograph": "1.webp",
     "address": "171 E Broadway, New York, NY 10002",
     "latlng": {
       "lat": 40.713829,
@@ -16,8 +16,8 @@
       "Wednesday": "5:30 pm - 12:00 am",
       "Thursday": "5:30 pm - 12:00 am",
       "Friday": "5:30 pm - 12:00 am",
-      "Saturday": "12:00 pm - 4:00 pm, 5:30 pm - 12:00 am",
-      "Sunday": "12:00 pm - 4:00 pm, 5:30 pm - 11:00 pm"
+      "Saturday": "12:00 pm - 4:00 pm,<br> 5:30 pm - 12:00 am",
+      "Sunday": "12:00 pm - 4:00 pm,<br> 5:30 pm - 11:00 pm"
     },
     "reviews": [{
         "name": "Steve",
@@ -37,12 +37,13 @@
         "rating": 3,
         "comments": "I was VERY excited to come here after seeing and hearing so many good things about this place. Having read much, I knew going into it that it was not going to be authentic Chinese. The place was edgy, had a punk rock throwback attitude, and generally delivered the desired atmosphere. Things went downhill from there though. The food was okay at best and the best qualities were easily overshadowed by what I believe to be poor decisions by the kitchen staff."
       }
-    ]
+    ],
+    "alt" : "People dining at Mission Chinese Food"
   }, {
     "id": 2,
     "name": "Emily",
     "neighborhood": "Brooklyn",
-    "photograph": "2.jpg",
+    "photograph": "2.webp",
     "address": "919 Fulton St, Brooklyn, NY 11238",
     "latlng": {
       "lat": 40.683555,
@@ -56,7 +57,7 @@
       "Thursday": "5:30 pm - 11:00 pm",
       "Friday": "5:30 pm - 11:00 pm",
       "Saturday": "5:00 pm - 11:30 pm",
-      "Sunday": "12:00 pm - 3:00 pm, 5:00 pm - 11:00 pm"
+      "Sunday": "12:00 pm - 3:00 pm,<br> 5:00 pm - 11:00 pm"
     },
     "reviews": [{
         "name": "Steph",
@@ -76,12 +77,13 @@
         "rating": 5,
         "comments": "5 star atmosphere as it is very cozy with great staff. 5 star food as their Emmy burger is outrageously good. and its on a pretzel bun.. Too juicy for its own good and downright addicting. Also try the Colony pizza. Many others looked like worth competitors, but the Colony really found its way to my heart. when you start with a great crust, top it with top notch cheese and sauce, you've got a winner. But, if you go a step further and add the salty from the pepperoni, the sweet from the honey, and the spicy from the chili oil.... your mouth is confused and happy at the same time."
       }
-    ]
+    ],
+    "alt" : "Close-up of a pizza"
   }, {
     "id": 3,
     "name": "Kang Ho Dong Baekjeong",
     "neighborhood": "Manhattan",
-    "photograph": "3.jpg",
+    "photograph": "3.webp",
     "address": "1 E 32nd St, New York, NY 10016",
     "latlng": {
       "lat": 40.747143,
@@ -115,12 +117,13 @@
         "rating": 2,
         "comments": "MEH. I've tried their Jersey location as well but Kang Ho Dong meat quality is severely decreasing. A Korean bbq place with whatever meat? I think NOT!"
       }
-    ]
+    ],
+    "alt" : "Interior of Kang Ho Dong Baekjeong"
   }, {
     "id": 4,
     "name": "Katz's Delicatessen",
     "neighborhood": "Manhattan",
-    "photograph": "4.jpg",
+    "photograph": "4.webp",
     "address": "205 E Houston St, New York, NY 10002",
     "latlng": {
       "lat": 40.722216,
@@ -154,12 +157,13 @@
         "rating": 2,
         "comments": "Ok so four of us came. One more later who didn't order becauase it's so expensive and simple. Seriously, a bunch of meat albeit you can sample beforehand on rye/white/wheat bread. Cheese extra. Pickles free, you can just ask them at the pickup counter. But seriously 20 bucks gone for an non-flavored half sandwich. And a line that is long, especially if you want seating. I'm down to just take a quick look where Sally and Harry sat and leave to the other delis all around NYC. Oh and they accept Samsung pay."
       }
-    ]
+    ],
+    "alt" : "Outside view of Katz's Delicatessen at night"
   }, {
     "id": 5,
     "name": "Roberta's Pizza",
     "neighborhood": "Brooklyn",
-    "photograph": "5.jpg",
+    "photograph": "5.webp",
     "address": "261 Moore St, Brooklyn, NY 11206",
     "latlng": {
       "lat": 40.705089,
@@ -193,12 +197,13 @@
         "rating": 4,
         "comments": "The pizza is fantastic, not THE best I've ever had, but would definitely go back since it has great food and great ambiance. Definitely worth going to. It has A LOT of hype in the New York food scene, and I question if it deserves all of it, but it's still a totally great spot to hit up when in the area!!"
       }
-    ]
+    ],
+    "alt" : "People having pizza at Roberta's Pizza"
   }, {
     "id": 6,
     "name": "Hometown BBQ",
     "neighborhood": "Brooklyn",
-    "photograph": "6.jpg",
+    "photograph": "6.webp",
     "address": "454 Van Brunt St, Brooklyn, NY 11231",
     "latlng": {
       "lat": 40.674925,
@@ -232,12 +237,13 @@
         "rating": 4,
         "comments": "mmmmmm, what a gem this is in bklyn! I loveeee how soft their brisket is here. Their pork tacos are to die for, their different variety of ribs and lastly, their lamb is not gamey at all. Super wallet friendly for the amount they give you. I highly recommend this spot- after eating here, you can definitely walk over for Steve's key lime pies."
       }
-    ]
+    ],
+    "alt" : "Customers sitting at tables. USA flag at the background"
   }, {
     "id": 7,
     "name": "Superiority Burger",
     "neighborhood": "Manhattan",
-    "photograph": "7.jpg",
+    "photograph": "7.webp",
     "address": "430 E 9th St, New York, NY 10009",
     "latlng": {
       "lat": 40.727397,
@@ -271,12 +277,13 @@
         "rating": 4,
         "comments": "Great flavors and very satisfying. Craving a sandwich, I stopped by on a Friday night with a vegetarian friend. Super small location with just a few seats inside. Ambiance is a bit industrial, good is definitely much more sophisticated than the look of the place! Ordered the superiority burger anda side of potato salad. The potato salad was very light and tasted clean ( less mayo, lots of dill and some cucumber) -- refreshing for a humid summer night! Sandwich was surprisingly delicious - it is very small ( funny allusion to a White Castle burger) but it packs a punch! Not only are there layers of flavors ( amazing sauces) but the party itself had a great texture Ahmed flavor-- well done and so wonderful! Will definitely stop by again for an overall amazing burger/sandwich. Staff was super nice and accommodating but not out of the way friendly."
       }
-    ]
+    ],
+    "alt": "Two men walking a dog at the front of Superiority Burger"
   }, {
     "id": 8,
     "name": "The Dutch",
     "neighborhood": "Manhattan",
-    "photograph": "8.jpg",
+    "photograph": "8.webp",
     "address": "131 Sullivan St, New York, NY 10012",
     "latlng": {
       "lat": 40.726584,
@@ -284,13 +291,13 @@
     },
     "cuisine_type": "American",
     "operating_hours": {
-      "Monday": "11:30 am - 3:00 pm, 5:30 pm - 11:00 pm",
-      "Tuesday": "11:30 am - 3:00 pm, 5:30 pm - 11:00 pm",
-      "Wednesday": "11:30 am - 3:00 pm, 5:30 pm - 11:00 pm",
-      "Thursday": "11:30 am - 3:00 pm, 5:30 pm - 11:00 pm",
-      "Friday": "11:30 am - 3:00 pm, 5:30 pm - 11:30 pm",
-      "Saturday": "10:00 am - 3:00 pm, 5:30 pm - 11:30 pm",
-      "Sunday": "10:00 am - 3:00 pm, 5:30 pm - 11:00 pm"
+      "Monday": "11:30 am - 3:00 pm,<br> 5:30 pm - 11:00 pm",
+      "Tuesday": "11:30 am - 3:00 pm,<br> 5:30 pm - 11:00 pm",
+      "Wednesday": "11:30 am - 3:00 pm,<br> 5:30 pm - 11:00 pm",
+      "Thursday": "11:30 am - 3:00 pm,<br> 5:30 pm - 11:00 pm",
+      "Friday": "11:30 am - 3:00 pm,<br> 5:30 pm - 11:30 pm",
+      "Saturday": "10:00 am - 3:00 pm,<br> 5:30 pm - 11:30 pm",
+      "Sunday": "10:00 am - 3:00 pm,<br> 5:30 pm - 11:00 pm"
     },
     "reviews": [{
         "name": "Steve",
@@ -310,12 +317,13 @@
         "rating": 4,
         "comments": "Aside from the slightly claustrophobic dining area and the fact that you may have difficulty hearing your dining companion, I'd return to The Dutch without hesitation. The food is surprisingly well-executed and conceived, and our dinner service flowed smoothly without a hitch. Just make sure to get a reservation in advance, as I'm sure more than just a few other people will have the same idea."
       }
-    ]
+    ],
+    "alt": "Branding of The Dutch"
   }, {
     "id": 9,
     "name": "Mu Ramen",
     "neighborhood": "Queens",
-    "photograph": "9.jpg",
+    "photograph": "9.webp",
     "address": "1209 Jackson Ave, Queens, NY 11101",
     "latlng": {
       "lat": 40.743797,
@@ -349,12 +357,13 @@
         "rating": 4,
         "comments": "One of the tastiest and most unique ramen places I've been to in NYC, but also the priciest. I think overall its worth the try. Not an everyday casual ramen shop though."
       }
-    ]
+    ],
+    "alt": "Woman on her mobile phone while her partner is eating ramen"
   }, {
     "id": 10,
     "name": "Casa Enrique",
     "neighborhood": "Queens",
-    "photograph": "10.jpg",
+    "photograph": "10.webp",
     "address": "5-48 49th Ave, Queens, NY 11101",
     "latlng": {
       "lat": 40.743394,
@@ -388,6 +397,7 @@
         "rating": 4,
         "comments": "For a Michelin star restaurant, it's fairly priced and the food is fairly good. Started with a strawberry margarita which was good in flavor but not much alcohol. Had the chicken enchiladas with salsa verde and it was really good. Great balance in flavor and a good portion. Extra tasty with their hot sauces. My wife had the lamb but it was a bit too salty for our taste. Although, it was cooked very well and fell off the bone. The highlight of the night was the tres leches cake. Probably the best I've ever had to be honest. Not too sweet and very milky. Overall, one of my top 3 favorite Mexican in NY."
       }
-    ]
+    ],
+    "alt": "Part of bar and empty interior of Casa Enrique"
   }]
 }
