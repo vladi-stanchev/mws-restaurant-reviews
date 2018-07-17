@@ -1,7 +1,10 @@
 if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('/sw.js').then(function() {
-    console.log('Registration worked!');
-  }).catch(function() {
-    console.log('Registration failed!');
-  });
-}
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then(function() {
+      console.log("SW Registered!");
+    })
+    .catch(function() {
+      console.log("SW reg failed!");
+    });
+} 

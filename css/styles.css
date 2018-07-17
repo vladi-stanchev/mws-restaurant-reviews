@@ -101,8 +101,11 @@ section {
 /* ====================== Navigation ====================== */
 nav {
   background-color: #1d2731;
-  text-align: center;
   width: 100%;
+}
+
+nav.heading {
+  text-align: center;
 }
 
 nav h1 {
