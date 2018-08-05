@@ -1,4 +1,4 @@
-const cacheVersion = 'restaurant-v77';
+const cacheVersion = 'restaurant-v80';
 
 // Images to cache - later to be added to a dedicated cache
 const imagesToCache = [
@@ -17,14 +17,15 @@ const imagesToCache = [
 const resourcesToCache = [
     '/index.html',
     '/restaurant.html',
+    '/manifest.json',
     '/css/normalize.css',
     '/css/styles.css',
     '/js/main.js',
     '/js/dbhelper.js',
     '/js/restaurant_info.js',
+    '/js/localforage.min.js',
     '/js/sw_reg.js',
     'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
-    'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js',
     ...imagesToCache
@@ -67,11 +68,6 @@ self.addEventListener('fetch', event => {
         return;
     };
 
-    if (url.pathname === "/restaurant.html") {
-        event.respondWith(caches.match("/restaurant.html"));
-        return;
-      }
-
     if (url.pathname.startsWith("/img/")) {
         event.respondWith(servePhoto(event.request));
         return;
@@ -90,4 +86,9 @@ function servePhoto(request) {
             response || cacheAndFetch(cache, request)
         ));
     });
+}
+
+function cacheAndFetch(cache, request) {
+    cache.add(request);
+    return fetch(request);
 }

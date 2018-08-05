@@ -2,7 +2,7 @@ TODO
 
 * Map to be accessible with tabs but not right after the navigation. so you can apply the ‘skip to main content’ logic
 * OK Tabindex
-* Sort out colours and simplify scheme - use hex where possible
+* Sort out colours and simplify scheme - use hex where possible http://www.css-color-extractor.com/
 * Change #ids css selectors to .classes
 * Define headings only once globally
 * Custom pins for map (pink)

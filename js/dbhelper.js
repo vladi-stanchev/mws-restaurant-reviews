@@ -3,32 +3,41 @@
  */
 class DBHelper {
 
-  /**
-   * Database URL.
-   * Change this to restaurants.json file location on your server.
-   */
   static get DATABASE_URL() {
-    const port = 8000 // Change this to your server port
-    return `http://localhost:${port}/data/restaurants.json`;
+     // return `http://localhost:1337`; // Local developer server
+      return `https://mws-stage-2.glitch.me/`; // Online developer server
+    }
+  
+  static get RESTAURANTS_PATH() {
+    return `${DBHelper.DATABASE_URL}/restaurants`; // Path to a JSON response on Dev server
   }
 
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', DBHelper.DATABASE_URL);
-    xhr.onload = () => {
-      if (xhr.status === 200) { // Got a success response from server!
-        const json = JSON.parse(xhr.responseText);
-        const restaurants = json.restaurants;
-        callback(null, restaurants);
-      } else { // Oops!. Got an error from server.
-        const error = (`Request failed. Returned status of ${xhr.status}`);
-        callback(error, null);
+    return DBHelper.getRestaurantsOffline().then(response => {
+      if (response) {
+        DBHelper.getRestaurantsOnline()
+        return callback(null, response)
       }
-    };
-    xhr.send();
+      return DBHelper.getRestaurantsOnline(callback)
+    })
+  }
+  // Get restaurants info from indexedDb
+  static getRestaurantsOffline() {
+    return localforage.getItem('restaurants')
+  }
+  // Save restaurants info locally in indexedDB
+  static saveRestaurants(restaurants) {
+    return localforage.setItem('restaurants', restaurants)
+  }
+  // Fetch restaurants info online and save in indexedDb
+  static getRestaurantsOnline(callback = () => null) {
+    return fetch(DBHelper.RESTAURANTS_PATH).then(response => response.json()).then(json => {
+        DBHelper.saveRestaurants(json)
+        return callback(null, json)
+      })
   }
 
   /**
@@ -150,7 +159,7 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}`);
+    return (`/img/${restaurant.id}.webp`);
   }
 
   /**
@@ -166,16 +175,4 @@ class DBHelper {
       marker.addTo(newMap);
     return marker;
   } 
-  /* static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
-      position: restaurant.latlng,
-      title: restaurant.name,
-      url: DBHelper.urlForRestaurant(restaurant),
-      map: map,
-      animation: google.maps.Animation.DROP}
-    );
-    return marker;
-  } */
-
 }
-
