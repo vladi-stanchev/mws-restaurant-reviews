@@ -78,11 +78,6 @@ a {
   transition: color 0.3s ease;
 }
 
-a:hover, a:focus {
-  color: #ff533d;
-  text-decoration: none;
-}
-
 a img {
   border: none 0 #fff;
 }
@@ -271,13 +266,6 @@ nav h1 a {
   transition-timing-function: ease-out;
 }
 
-#restaurants-list li:hover {
-  box-shadow: 0 14px 32px 0 rgba(0,0,0,.2);
-  transform: translateY(-5px);
-  transition-duration: 0.2s;
-  transition-timing-function: ease-out;
-}
-
 #restaurants-list .restaurant-img {
   background-color: #f7f7f7;
   display: block;
@@ -337,10 +325,6 @@ nav h1 a {
   text-transform: uppercase;
 }
 
-#restaurants-list a:hover, a:focus {
-  color: #cf6766;
-}
-
 #restaurants-list li a:after {
   /* Motion effect */
   background-color: rgb(255, 83, 61, 0.1);
@@ -353,10 +337,6 @@ nav h1 a {
   top: 0;
   transition: width 0.33s ease-in-out;
   width: 0;
-}
-
-#restaurants-list li a:hover:after {
-  width: 50%;
 }
 
 ul:last-child {
@@ -629,6 +609,26 @@ header {
 }
 
 @media only screen and (min-width: 1024px) {
+
+  a:hover, a:focus {
+    color: #ff533d;
+    text-decoration: none;
+  }
+
+  #restaurants-list a:hover, a:focus {
+    color: #cf6766;
+  }
+
+  #restaurants-list li a:hover:after {
+    width: 50%;
+  }
+
+  #restaurants-list li:hover {
+    box-shadow: 0 14px 32px 0 rgba(0,0,0,.2);
+    transform: translateY(-5px);
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+  }
 
   #restaurants-list li {
     max-width: 300px;
