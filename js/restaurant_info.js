@@ -35,22 +35,6 @@ initMap = () => {
     }
   });
 }  
- 
-/* window.initMap = () => {
-  fetchRestaurantFromURL((error, restaurant) => {
-    if (error) { // Got an error!
-      console.error(error);
-    } else {
-      self.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: restaurant.latlng,
-        scrollwheel: false
-      });
-      fillBreadcrumb();
-      DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
-    }
-  });
-} */
 
 /**
  * Get current restaurant from page URL.
@@ -84,13 +68,32 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
 
+  const isFavorite = restaurant.is_favorite ?
+  JSON.parse(restaurant.is_favorite) :
+  false
+
+  const heartIcon = document.querySelector('#fav-ico');
+
+  heartIcon.src = isFavorite ? // Set's innitial fav ico according to DB status
+    './img/heart-solid.svg' :
+    './img/heart-solid-grey.svg'
+
+  // Listens for mouse event to fire a toggle function
+  heartIcon.addEventListener('mousedown', () => toggleFavorite(restaurant));
+
+
+
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
 
+  const source = document.getElementById('source');
+  source.srcset = `${DBHelper.imageUrlForRestaurant(restaurant)}.webp`;
+  source.type = `image/webp`;
+
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img, fade-in'
+  image.className = `restaurant-img`;
   image.alt = 'Image of ' + restaurant.name + " Restaurant";
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.src = `${DBHelper.imageUrlForRestaurant(restaurant)}.jpg`;
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -100,15 +103,45 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     fillRestaurantHoursHTML();
   }
   // fill reviews
-  fillReviewsHTML();
-
+  // fillReviewsHTML();
+  DBHelper.getRestReviews(restaurant.id, fillReviewsHTML);
+  
   // create meta description 
   const link=document.createElement('meta');
   link.name="Description";
   link.content= restaurant.name;
   document.getElementsByTagName('head')[0].appendChild(link);
-}
 
+// TOGGLE FAV //
+  toggleFavorite = restaurant => {
+
+      const isFavorite = restaurant.is_favorite ?
+        JSON.parse(restaurant.is_favorite) :
+        false
+    
+      isFavorite // Picks a function depending on previous state
+        ? removeFromFavs(restaurant.id)
+        : addToFavs(restaurant.id);
+    }
+    
+    addToFavs = restaurantId => { // 1. Changes image src; 2. Changes status of is_favourite in DB
+      const heartIcon = document.querySelector('#fav-ico');
+      heartIcon.src = './img/heart-solid.svg';
+      restaurant.is_favorite = true;
+      DBHelper.addToFavs(restaurantId);
+      console.log('Added to Favs!');
+
+    }
+    
+    removeFromFavs = restaurantId => { // As addToFavs()
+      const heartIcon = document.querySelector('#fav-ico');
+      heartIcon.src = './img/heart-solid-grey.svg';
+      restaurant.is_favorite = false;
+      DBHelper.removeFromFavs(restaurantId);
+      console.log('Removed from Favs!');
+    }
+  
+}
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
@@ -129,25 +162,35 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
   }
 }
 
+// APPEND REVIEWS
+appendReview = review => {
+  const ul = document.getElementById('reviews-list');
+  ul.appendChild(createReviewHTML(review));
+}
+
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+//fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+  fillReviewsHTML = (error,reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
   container.appendChild(title);
 
-  if (!reviews) {
+  //if (!reviews) {
+  if (reviews.length === 0) {
     const noReviews = document.createElement('p');
     noReviews.innerHTML = 'No reviews yet!';
     container.appendChild(noReviews);
     return;
   }
   const ul = document.getElementById('reviews-list');
-  reviews.forEach(review => {
-    ul.appendChild(createReviewHTML(review));
-  });
+  // reviews.forEach(review => {
+  //   ul.appendChild(createReviewHTML(review));
+  // });
+  reviews.forEach(appendReview);
+
   container.appendChild(ul);
 }
 
@@ -160,8 +203,13 @@ createReviewHTML = (review) => {
   name.innerHTML = review.name;
   li.appendChild(name);
 
-  const date = document.createElement('time');
-  date.innerHTML = review.date;
+  // const date = document.createElement('time');
+  // date.innerHTML = review.createdAt;
+  // li.appendChild(date);
+
+  const date = document.createElement('p');
+  date.innerHTML = formatTime(review.updatedAt);
+  date.classList.add('review-date');
   li.appendChild(date);
 
   const rating = document.createElement('p');
@@ -173,6 +221,16 @@ createReviewHTML = (review) => {
   li.appendChild(comments);
 
   return li;
+}
+
+// FORMATS THE DATE FROM THE REVIEW OBJ TO BE DISPLAYED CORRECTLY IN HTML
+formatTime = time => { 
+  const date = new Date(time);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`; // RETURNS DATE IN FORMAT "22/08/2018" TO BE INSERTED IN MARKUP
 }
 
 /**
@@ -200,3 +258,27 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+// LISTENS FOR REVIEW FORM SUBMISSION AND DISPLAYS/SAVES/SYNCS REVIEW
+addReviewFormListener = () => {
+  const form = document.querySelector('#review-form');
+  form.addEventListener('submit', event => {
+    event.preventDefault()
+    const name = form.querySelector('#name')
+    const rating = form.querySelector('#rating')
+    const comments = form.querySelector('#comments')
+     const review = {
+      restaurant_id: getParameterByName('id'),
+      name: name.value,
+      rating: parseInt(rating.value),
+      comments: comments.value
+    }
+     appendReview({...review, updatedAt: new Date() });
+    DBHelper.submitOrSyncReview(review);
+    DBHelper.saveARestReview(review);
+     name.value = ''
+    rating.value = 1
+    comments.value = ''
+  })
+}
+ addReviewFormListener(); 

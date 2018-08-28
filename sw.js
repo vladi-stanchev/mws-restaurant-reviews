@@ -1,4 +1,4 @@
-const cacheVersion = 'restaurant-v80';
+const cacheVersion = 'restaurant-v81';
 
 // Images to cache - later to be added to a dedicated cache
 const imagesToCache = [
@@ -11,7 +11,9 @@ const imagesToCache = [
     '/img/7.webp',
     '/img/8.webp',
     '/img/9.webp',
-    '/img/10.webp'
+    '/img/10.webp',
+    '/img/heart-solid.svg',
+    '/img/heart-solid-grey.svg'
   ];
 // resources to cache + images array
 const resourcesToCache = [
@@ -55,6 +57,16 @@ self.addEventListener("activate", event => {
     );
   return self.clients.claim();
 }); 
+
+// SYNCING REVIEWS
+self.addEventListener('sync', event => {
+    if (event.tag === 'sync-reviews') {
+        console.log('Syncing reviews...')
+        event.waitUntil(
+            broadcast({ action: 'send-reviews' })
+        )
+    }
+})
 
 //In tercepting the response to see if possible to serve from cache; if not, requests are fetched from web
 self.addEventListener('fetch', event => {

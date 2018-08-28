@@ -176,7 +176,7 @@ nav h1 a {
 
 /* Add a color to all links inside the list */
 #breadcrumb li a {
-  color: rgb(48, 65, 89,0.75);
+  color: rgba(48, 65, 89, 0.75);
   text-decoration: none;
 }
 
@@ -239,6 +239,15 @@ nav h1 a {
 }
 
 /* ====================== Restaurant Listing ====================== */
+#fav-ico {
+  grid-area: fav;
+  height: 2em;
+  /* float: auto; */
+  /* text-align: center; */
+  margin-left: 1em;
+  cursor: pointer;
+}
+
 #restaurants-list, #reviews-list {
   background-color: #fefefe;
   display: flex;
@@ -357,6 +366,10 @@ header {
   top: 0;
   width: 100%;
   z-index: 1000;
+}
+
+h2#restaurant-name {
+  display: inline;
 }
 
 #side-map-container {
@@ -657,7 +670,7 @@ header {
     grid-column-gap: 0.5em;
     grid-row-gap: 1em;
     grid-template-areas: "title title title title title"
-    "cuisine address address address address"
+    "cuisine address address address fav"
     "img img img hours hours"
     "space space space space space"
     "map map map map map"

@@ -4,12 +4,16 @@
 class DBHelper {
 
   static get DATABASE_URL() {
-     // return `http://localhost:1337`; // Local developer server
-      return `https://mws-stage-2.glitch.me/`; // Online developer server
+    return `http://localhost:1337`; // Local developer server
+     // return `https://mws-stage-3.glitch.me/`; // Online developer server
     }
   
   static get RESTAURANTS_PATH() {
-    return `${DBHelper.DATABASE_URL}/restaurants`; // Path to a JSON response on Dev server
+    return `${DBHelper.DATABASE_URL}/restaurants`; // Path to a JSON response for Restaurants on Dev server
+  }
+
+  static get REVIEWS_PATH() {
+    return `${DBHelper.DATABASE_URL}/reviews`; // Path to a JSON response for Reviews on Dev server
   }
 
   /**
@@ -159,7 +163,7 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.id}.webp`);
+    return (`/img/${restaurant.id}`);
   }
 
   /**
@@ -175,4 +179,111 @@ class DBHelper {
       marker.addTo(newMap);
     return marker;
   } 
+
+  // GET REVIEWS
+  static getRestReviews(restaurantId, callback) {
+    this.getRestReviewsOffline(restaurantId)
+    .then(response => {
+      if (response) {
+        DBHelper.getRestReviewsOnline(restaurantId)
+        return callback(null, response)
+      }
+      return DBHelper.getRestReviewsOnline(
+        restaurantId,
+        callback
+      )
+    })
+
+  }
+
+  // CACHE REVIEWS
+  static saveRestReviews(restaurantId, reviews) {
+    return localforage.setItem(
+      `restaurantReviews${restaurantId}`,
+      reviews
+    )
+  }
+
+  static saveARestReview(review) {
+    const key =
+    this.getRestReviewsOffline(review.restaurant_id)
+    .then(reviews => {
+      localforage.setItem(
+        `restaurantReviews${review.restaurant_id}`,
+        [...reviews, { ...review, updatedAt: new Date() }]
+      )
+    })
+  }
+  
+  // GET REVIEWS FROM IDB
+  static getRestReviewsOffline(restaurantId) {
+    return localforage.getItem(`restaurantReviews${restaurantId}`)
+  }
+  // GET REVIEWS FROM ONLINE SERVER
+  static getRestReviewsOnline(restaurantId, callback = () => null) {
+    return fetch(`${this.REVIEWS_PATH}/?restaurant_id=${restaurantId}`)
+      .then(data => data.json())
+      .then(reviews => {
+        this.saveRestReviews(restaurantId, reviews)
+        callback(null, reviews)
+      })
+      .catch(error => callback(error, null))
+  }
+
+  // ADD A REST TO FAVS
+  static addToFavs(restaurantId) {
+    const url = `${DBHelper.RESTAURANTS_PATH}/${restaurantId}/?is_favorite=true`;
+    fetch(url, { method: 'PUT' })
+  }
+  // REMOVE A REST FROM FAVS
+  static removeFromFavs(restaurantId) {
+    const url = `${DBHelper.RESTAURANTS_PATH}/${restaurantId}/?is_favorite=false`;
+    fetch(url, { method: 'PUT' })
+  }
+
+  // SUBMIT OR SYNC REVIEW
+  static submitOrSyncReview(review) {
+    this.submitRestReview(review)
+    .catch(() => this.sendReviewSyncRequest(review))
+  }
+
+  static submitRestReview(review) {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(review)
+    }
+    return fetch(this.REVIEWS_PATH, options)
+  }
+
+  static sendReviewSyncRequest(review) {
+    if (navigator.serviceWorker) {
+      console.log('Requesting review sync...')
+      this.storeReview(review)
+      navigator.serviceWorker.ready
+      .then(reg => reg.sync.register('sync-reviews'))
+    }
+  }
+
+  static storeReview(review) {
+    console.log('Storing review...')
+    localforage.getItem('pendingReviews')
+    .then(response => {
+      const reviews = response || []
+      localforage.setItem('pendingReviews', [...reviews, review])
+    })
+  }
+
+  static sendStoredReviews() {
+    console.log('Sending reviews...')
+    localforage.getItem('pendingReviews')
+    .then(response => {
+      const reviews = response || []
+      console.log('Reviews: ', reviews)
+      for (const review of reviews) {
+        this.submitRestReview(review)
+      }
+      localforage.setItem('pendingReviews', [])
+    })
+
+  }
 }

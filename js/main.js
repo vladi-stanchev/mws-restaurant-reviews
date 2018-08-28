@@ -1,7 +1,7 @@
 let restaurants,
   neighborhoods,
-  cuisines
-var newMap
+  cuisines;
+var newMap;
 var markers = []
 
 /**
@@ -87,18 +87,6 @@ initMap = () => {
   }).addTo(newMap);
   updateRestaurants();
 }
-/* window.initMap = () => {
-  let loc = {
-    lat: 40.722216,
-    lng: -73.987501
-  };
-  self.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: loc,
-    scrollwheel: false
-  });
-  updateRestaurants();
-} */
 
 /**
  * Update page and map for current restaurants.
@@ -158,11 +146,23 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
+  // Create <picture> element & append
+  const picture = document.createElement('picture');
+  li.append(picture);
+
+  // Create source to webp image & append
+  const source = document.createElement('source');
+  source.srcset = `${DBHelper.imageUrlForRestaurant(restaurant)}.webp`;
+  source.type = `image/webp`;
+  picture.appendChild(source);
+  
+  // Create main <img> element with jpg (compatibility) and ALT & append
   const image = document.createElement('img');
-  image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.alt = 'Image of ' + restaurant.name  + " Restaurant";
-  li.append(image);
+  image.className = `restaurant-img`;
+  image.alt = 'Image of ' + restaurant.name + " Restaurant";
+  image.src = `${DBHelper.imageUrlForRestaurant(restaurant)}.jpg`;
+  picture.appendChild(image);
+
 
   const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
@@ -200,14 +200,3 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   });
 
 } 
-/* addMarkersToMap = (restaurants = self.restaurants) => {
-  restaurants.forEach(restaurant => {
-    // Add marker to the map
-    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
-    google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url
-    });
-    self.markers.push(marker);
-  });
-} */
-
