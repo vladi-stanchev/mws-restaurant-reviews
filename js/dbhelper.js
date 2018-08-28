@@ -4,8 +4,8 @@
 class DBHelper {
 
   static get DATABASE_URL() {
-    return `http://localhost:1337`; // Local developer server
-     // return `https://mws-stage-3.glitch.me/`; // Online developer server
+     // return `http://localhost:1337`; // Local developer server
+    return `https://mws-stage-3.glitch.me/`; // Online developer server
     }
   
   static get RESTAURANTS_PATH() {
