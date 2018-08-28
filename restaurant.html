@@ -64,7 +64,7 @@
     <!-- Beginning restaurant -->
     <div id="restaurant-container">
         <h2 id="restaurant-name"></h2>
-        <img id="fav-ico" src='./img/heart-solid.svg' alt="favourite icon" aria-label="toggle favourite">
+        <img id="fav-ico" src='./img/heart-solid.svg' alt="favourite icon" aria-label="toggle favourite" tabindex="0">
     </div>
 
     <section><p id="restaurant-cuisine"></p></section> 
@@ -91,16 +91,17 @@
     <section id="reviews-container">
       <ul id="reviews-list"></ul>
 
-
+    <h3>Add a Review</h3>
       <form id="review-form" aria-label="Review form">
-          <h3>Add a Review</h3>
-          <fieldset>
-          <legend>Review this venue</legend>
-          <label for="name">Your Name:</label>
-          <input id="name"/>
+          <label for="name">Your Name:</label> 
+          <br>
+          <input id="name" pattern=".{3,}" required title="Your name must be minimum 3 characters.">
+          <br><br>
           <label for="comments">What did you think of this restaurant?</label>
-          <textarea id="comments">
+          <br>
+          <textarea id="comments" rows="8" cols="45" pattern=".{10,}" required title="Your review must be at least 10 characters."></textarea>
           </textarea>
+          <br><br>
           <label>Rating:
               <select id="rating">
                 <option value="1">1</option>
@@ -110,8 +111,8 @@
                 <option value="5">5</option>
               </select>
             </label>
-          <button id="submit-button">Submit</button>
-        </fieldset>
+          <br><br>
+          <button id="submit">Submit</button>
         </form>
     </section>
     <!-- End reviews -->

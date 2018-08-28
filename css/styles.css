@@ -514,6 +514,58 @@ h2#restaurant-name {
   letter-spacing: 0.014rem;
 }
 
+#review-form {
+  /* display: flex;
+  flex-wrap: wrap; */
+  margin: 30px 0;
+  width: 25em;
+  background-color: #ddd;
+  background-color: #fff;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 8px rgba(0,0,0,.2);
+  font-family: "Roboto", "Helvetica", sans-serif;
+  margin: 1.5em 0;
+  overflow: hidden;
+  padding: 2em;
+  text-align: left;
+  transform: translateY(0);
+  transition: all 0.5s cubic-bezier(.165, 0.84, 0.44, 1);
+  transition-duration: 0.15s;
+  transition-timing-function: ease-out;
+}
+
+#review-form input {
+  height: 30px;
+  border: 1px solid rgba(48, 65, 89, 0.85);; 
+
+}
+
+#review-form textarea {
+  border: 1px solid rgba(48, 65, 89, 0.85);; 
+}
+
+#submit {
+  background-color: rgba(48, 65, 89, 0.85);
+  padding: .5em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 6px;
+  color: #ddd;;
+  font-size: 1rem;
+  text-decoration: none;
+  border: none;
+  transition: background-color 0.3s ease-out;
+  width: 62%;
+  cursor: pointer;
+
+}
+
+#submit:hover {
+  background-color: #e27a7a;
+  color: #1d2731;;
+
+}
+
 @media only screen and (min-width: 0px) {
 
   #restaurants-list {
